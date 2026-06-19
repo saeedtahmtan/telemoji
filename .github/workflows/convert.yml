@@ -1,0 +1,41 @@
+name: Convert TGS to WebP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tgs/**'
+      - 'scripts/convert_tgs_to_webp.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install rlottie-python Pillow tqdm
+
+      - name: Convert TGS to WebP
+        run: python scripts/convert_tgs_to_webp.py
+
+      - name: Commit WebP files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add webp/
+          if git diff --staged --quiet; then
+            echo "No new WebP files to commit"
+          else
+            git commit -m "convert TGS to animated WebP"
+            git push
+          fi

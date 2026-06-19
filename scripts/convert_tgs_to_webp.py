@@ -41,7 +41,7 @@ def convert_tgs_to_webp(tgs_path: Path, webp_path: Path):
 
 def main():
     parser = argparse.ArgumentParser(description="Batch convert TGS to animated WebP")
-    parser.add_argument("--input", default="emojis", help="Input directory containing TGS files")
+    parser.add_argument("--input", default="tgs", help="Input directory containing TGS files")
     parser.add_argument("--output", default="webp", help="Output directory for WebP files")
     parser.add_argument("--skip-existing", action="store_true", default=True, help="Skip if WebP already exists")
     args = parser.parse_args()

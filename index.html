@@ -95,8 +95,8 @@
         <div class="stats" id="stats"></div>
         <div class="format-selector">
             <div class="format-switch">
-                <button class="format-btn" id="fmt-tgs" data-format="tgs">TGS</button>
                 <button class="format-btn active" id="fmt-webp" data-format="webp">WebP</button>
+                <button class="format-btn" id="fmt-tgs" data-format="tgs">TGS</button>
             </div>
         </div>
         <div id="emoji-container" class="emoji-grid">
@@ -183,6 +183,18 @@
                 container.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Nothing found.</p></div>';
             } else {
                 container.innerHTML = '';
+                const io = new IntersectionObserver((entries) => {
+                    for (const entry of entries) {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const src = el.dataset.tgsSrc;
+                            if (src && !el.hasAttribute('src')) {
+                                el.setAttribute('src', src);
+                            }
+                            io.unobserve(el);
+                        }
+                    }
+                }, { rootMargin: '200px' });
                 for (const item of items) {
                     const card = document.createElement('div');
                     card.className = 'emoji-card';
@@ -190,12 +202,13 @@
                     preview.className = 'emoji-preview';
                     if (gridFormat === 'tgs') {
                         const player = document.createElement('tgs-player');
-                        player.setAttribute('src', fmtPath(item, 'tgs'));
+                        player.dataset.tgsSrc = fmtPath(item, 'tgs');
                         player.setAttribute('autoplay', 'true');
                         player.setAttribute('loop', 'true');
                         player.style.width = '64px';
                         player.style.height = '64px';
                         preview.appendChild(player);
+                        io.observe(player);
                     } else {
                         const img = document.createElement('img');
                         img.src = fmtPath(item, 'webp');
@@ -310,16 +323,16 @@
             });
         });
 
-        document.getElementById('fmt-tgs').addEventListener('click', () => {
-            document.getElementById('fmt-tgs').classList.add('active');
-            document.getElementById('fmt-webp').classList.remove('active');
-            gridFormat = 'tgs';
-            render();
-        });
         document.getElementById('fmt-webp').addEventListener('click', () => {
             document.getElementById('fmt-webp').classList.add('active');
             document.getElementById('fmt-tgs').classList.remove('active');
             gridFormat = 'webp';
+            render();
+        });
+        document.getElementById('fmt-tgs').addEventListener('click', () => {
+            document.getElementById('fmt-tgs').classList.add('active');
+            document.getElementById('fmt-webp').classList.remove('active');
+            gridFormat = 'tgs';
             render();
         });
 
