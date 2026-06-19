@@ -95,8 +95,8 @@
         <div class="stats" id="stats"></div>
         <div class="format-selector">
             <div class="format-switch">
-                <button class="format-btn active" id="fmt-webp" data-format="webp">WebP</button>
-                <button class="format-btn" id="fmt-tgs" data-format="tgs">TGS</button>
+                <button class="format-btn" id="fmt-webp" data-format="webp">WebP</button>
+                <button class="format-btn active" id="fmt-tgs" data-format="tgs">TGS</button>
             </div>
         </div>
         <div id="emoji-container" class="emoji-grid">
@@ -142,7 +142,7 @@
         let data = [];
         let currentItem = null;
         let currentFormat = 'tgs';
-        let gridFormat = 'webp';
+        let gridFormat = 'tgs';
         const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
         const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', default_status: 'Status', channel_status: 'Channel', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
         const container = document.getElementById('emoji-container');
@@ -183,18 +183,6 @@
                 container.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Nothing found.</p></div>';
             } else {
                 container.innerHTML = '';
-                const io = new IntersectionObserver((entries) => {
-                    for (const entry of entries) {
-                        if (entry.isIntersecting) {
-                            const el = entry.target;
-                            const src = el.dataset.tgsSrc;
-                            if (src && !el.hasAttribute('src')) {
-                                el.setAttribute('src', src);
-                            }
-                            io.unobserve(el);
-                        }
-                    }
-                }, { rootMargin: '200px' });
                 for (const item of items) {
                     const card = document.createElement('div');
                     card.className = 'emoji-card';
@@ -202,13 +190,12 @@
                     preview.className = 'emoji-preview';
                     if (gridFormat === 'tgs') {
                         const player = document.createElement('tgs-player');
-                        player.dataset.tgsSrc = fmtPath(item, 'tgs');
+                        player.setAttribute('src', fmtPath(item, 'tgs'));
                         player.setAttribute('autoplay', 'true');
                         player.setAttribute('loop', 'true');
                         player.style.width = '64px';
                         player.style.height = '64px';
                         preview.appendChild(player);
-                        io.observe(player);
                     } else {
                         const img = document.createElement('img');
                         img.src = fmtPath(item, 'webp');
