@@ -16,17 +16,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Python deps
+      - name: Install dependencies
         run: pip install rlottie-python Pillow tqdm
 
+      - name: Get changed TGS files
+        id: changed
+        run: |
+          before="${{ github.event.before }}"
+          if [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            echo "First push — convert all new TGS files"
+            echo "changed=" >> $GITHUB_OUTPUT
+          else
+            changed=$(git diff --name-only --diff-filter=AM "$before" "${{ github.sha }}" -- tgs/ | sed 's|^tgs/||' | tr '\n' ' ')
+            echo "changed=$changed" >> $GITHUB_OUTPUT
+          fi
+
       - name: Convert TGS to WebP
-        run: python scripts/convert_tgs_to_webp.py --skip-existing
+        run: |
+          CHANGED="${{ steps.changed.outputs.changed }}"
+          if [ -n "$CHANGED" ]; then
+            echo "Converting changed files: $CHANGED"
+            python scripts/convert_tgs_to_webp.py --files $CHANGED
+          else
+            echo "No specific files detected — converting all with --skip-existing"
+            python scripts/convert_tgs_to_webp.py --skip-existing --jobs 4
+          fi
 
       - name: Commit WebP files
         run: |
