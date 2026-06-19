@@ -36,13 +36,15 @@
         .chip { padding: .5rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card-bg); cursor: pointer; font-size: .9rem; font-weight: 500; transition: all .2s; }
         .chip:hover { border-color: var(--primary); color: var(--primary); }
         .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-        .emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 1rem; }
-        .emoji-card { background: var(--card-bg); border-radius: 10px; padding: 1rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+        .emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 1.25rem; }
+        .emoji-card { background: var(--card-bg); border-radius: 12px; padding: 1.25rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
         .emoji-card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px var(--shadow); }
-        .emoji-preview { height: 80px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
+        .emoji-preview { height: 100px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
         .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
-        .emoji-preview tgs-player { width: 64px; height: 64px; }
-        .emoji-label { font-size: .75rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .emoji-preview tgs-player { width: 90px; height: 90px; }
+        .emoji-label { font-size: .8rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .emoji-card[data-type="default_status"], .emoji-card[data-type="channel_status"] { background: #1a1a2e; }
+        .emoji-card[data-type="default_status"] .emoji-label, .emoji-card[data-type="channel_status"] .emoji-label { color: #adb5bd; }
         .format-selector { display: flex; justify-content: center; margin-bottom: 1.5rem; }
         .format-switch { display: flex; background: #f1f3f5; border-radius: 8px; padding: .3rem; }
         .format-btn { padding: .5rem 1.2rem; border: none; background: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; }
@@ -150,7 +152,7 @@
         let currentFormat = 'tgs';
         let gridFormat = 'tgs';
         let currentPage = 1;
-        const PER_PAGE = 60;
+        const PER_PAGE = 30;
         const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
         const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', default_status: 'Status', channel_status: 'Channel', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
         const container = document.getElementById('emoji-container');
@@ -205,6 +207,7 @@
             for (const item of pageItems) {
                 const card = document.createElement('div');
                 card.className = 'emoji-card';
+                card.dataset.type = item.type;
                 const preview = document.createElement('div');
                 preview.className = 'emoji-preview';
                 if (gridFormat === 'tgs') {
@@ -212,8 +215,8 @@
                     player.src = fmtPath(item, 'tgs');
                     player.autoplay = true;
                     player.loop = true;
-                    player.style.width = '64px';
-                    player.style.height = '64px';
+                    player.style.width = '90px';
+                    player.style.height = '90px';
                     preview.appendChild(player);
                 } else {
                     const img = document.createElement('img');
