@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://animated-country-flags.malith.dev/</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://animated-country-flags.malith.dev/og-image.png</image:loc>
+            <image:caption>Animated United Nations Flag</image:caption>
+            <image:title>UN Flag Animation in WebP format</image:title>
+        </image:image>
+    </url>
+    
+    <!-- TGS Format Pages (Virtual URLs for SEO) -->
+    <url>
+        <loc>https://animated-country-flags.malith.dev/#tgs-flags</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/#webp-flags</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Individual Flag Resources (Examples - you can add more) -->
+    <url>
+        <loc>https://animated-country-flags.malith.dev/tgs/US.tgs</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/webp/US.webp</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/tgs/GB.tgs</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/webp/GB.webp</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/tgs/JP.tgs</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/webp/JP.webp</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://animated-country-flags.malith.dev/flags.json</loc>
+        <lastmod>2025-01-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+</urlset>

@@ -1,0 +1,11 @@
+
+# Environment (contains API keys + bot token)
+.env
+
+# Telethon session files
+*.session
+
+# Node modules
+node_modules/
+
+# Downloaded emoji artifacts already captured

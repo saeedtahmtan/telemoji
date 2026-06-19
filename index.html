@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemoji - Animated Telegram Emoji & Flag Collection | TGS & WebP</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <meta name="description" content="Download free animated Telegram emojis and country flags in TGS and WebP formats. High-quality animations for 2000+ emojis.">
+    <meta name="keywords" content="animated emoji, telegram emoji, TGS, WebP, animated flags, country flags, emoji download">
+    <meta name="author" content="Telemoji">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://telemoji.yourdomain.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Telemoji - Animated Telegram Emoji & Flag Collection">
+    <meta property="og:description" content="Free animated emojis and country flags in TGS and WebP formats.">
+    <meta property="og:image" content="og-image.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #3a86ff; --primary-dark: #2667cc; --background: #f8f9fa; --card-bg: #fff; --text-primary: #212529; --text-secondary: #6c757d; --border: #e9ecef; --shadow: rgba(0,0,0,0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--background); color: var(--text-primary); line-height: 1.6; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 2rem 0; }
+        header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 2.5rem 0; text-align: center; }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        header p { font-size: 1.1rem; opacity: 0.9; }
+        .search-container { margin: 2rem 0; position: relative; }
+        .search-input { width: 100%; padding: 1rem 3rem 1rem 1.5rem; font-size: 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card-bg); box-shadow: 0 2px 4px var(--shadow); transition: all .3s; }
+        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(58,134,255,0.25); }
+        .search-icon { position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 1.2rem; }
+        .category-chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-bottom: 1.5rem; }
+        .chip { padding: .5rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card-bg); cursor: pointer; font-size: .9rem; font-weight: 500; transition: all .2s; }
+        .chip:hover { border-color: var(--primary); color: var(--primary); }
+        .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 1rem; }
+        .emoji-card { background: var(--card-bg); border-radius: 10px; padding: 1rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+        .emoji-card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px var(--shadow); }
+        .emoji-preview { height: 80px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
+        .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
+        .emoji-preview tgs-player { width: 64px; height: 64px; }
+        .emoji-label { font-size: .75rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .format-selector { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+        .format-switch { display: flex; background: #f1f3f5; border-radius: 8px; padding: .3rem; }
+        .format-btn { padding: .5rem 1.2rem; border: none; background: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; }
+        .format-btn.active { background: var(--card-bg); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; overflow-y: auto; }
+        .modal-content { background: var(--card-bg); margin: 2rem auto; width: 90%; max-width: 700px; border-radius: 12px; box-shadow: 0 15px 30px var(--shadow); overflow: hidden; }
+        .modal-header { background: var(--primary); color: #fff; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 1.3rem; font-weight: 600; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; color: #fff; cursor: pointer; opacity: .8; }
+        .modal-close:hover { opacity: 1; }
+        .modal-body { padding: 2rem; }
+        .emoji-preview-modal { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
+        .preview-box { width: 160px; height: 120px; background: rgba(0,0,0,0.02); border-radius: 8px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); }
+        .preview-box img { max-width: 100%; max-height: 100%; }
+        .preview-box tgs-player { width: 120px; height: 120px; }
+        .code-snippets { margin-top: 1.5rem; }
+        .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+        .tab-btn { padding: .6rem 1.2rem; background: none; border: none; border-bottom: 2px solid transparent; font-weight: 500; cursor: pointer; transition: all .2s; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .code-block { background: #f8f9fa; border-radius: 8px; padding: 1rem; font-family: monospace; white-space: pre-wrap; word-break: break-all; border: 1px solid var(--border); margin-bottom: .75rem; font-size: .85rem; line-height: 1.5; overflow-x: auto; }
+        .copy-btn { background: var(--primary); color: #fff; border: none; border-radius: 6px; padding: .5rem 1rem; font-size: .85rem; cursor: pointer; transition: background .2s; }
+        .copy-btn:hover { background: var(--primary-dark); }
+        .loading { text-align: center; padding: 3rem 0; color: var(--text-secondary); }
+        .loading i { font-size: 2rem; margin-bottom: 1rem; animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .no-results { text-align: center; padding: 3rem 0; color: var(--text-secondary); }
+        .no-results i { font-size: 2.5rem; margin-bottom: 1rem; opacity: .5; }
+        .stats { text-align: center; color: var(--text-secondary); font-size: .9rem; margin-bottom: 1rem; }
+        footer { background: #212529; color: #fff; text-align: center; padding: 2rem 0; margin-top: 3rem; }
+        .footer-link { color: #4cc9f0; text-decoration: none; }
+        .footer-link:hover { opacity: .8; }
+        @media (max-width: 768px) { .emoji-grid { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); gap: .75rem; } .modal-content { margin: 1rem; width: calc(100% - 2rem); } .modal-header { padding: 1rem 1.5rem; } .modal-body { padding: 1.5rem; } .modal-title { font-size: 1.1rem; } .preview-box { width: 120px; height: 100px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Telemoji - Animated Emoji & Flag Collection</h1>
+            <p>Free animated Telegram emojis and country flags in TGS &amp; WebP formats</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="search-container">
+            <input type="text" class="search-input" id="search-input" placeholder="Search emojis, flags..." aria-label="Search">
+            <i class="fas fa-search search-icon" aria-hidden="true"></i>
+        </div>
+        <div class="category-chips" id="category-chips"></div>
+        <div class="stats" id="stats"></div>
+        <div class="format-selector">
+            <div class="format-switch">
+                <button class="format-btn" id="fmt-tgs" data-format="tgs">TGS</button>
+                <button class="format-btn active" id="fmt-webp" data-format="webp">WebP</button>
+            </div>
+        </div>
+        <div id="emoji-container" class="emoji-grid">
+            <div class="loading"><i class="fas fa-spinner"></i><p>Loading...</p></div>
+        </div>
+    </main>
+    <div id="emoji-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Details</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="emoji-preview-modal">
+                    <div class="format-switch">
+                        <button class="format-btn active" data-format="tgs">TGS</button>
+                        <button class="format-btn" data-format="webp">WebP</button>
+                    </div>
+                    <div class="preview-box" id="preview-container"></div>
+                    <p id="modal-subtitle" style="margin-top: .5rem; color: var(--text-secondary); font-size: .9rem;"></p>
+                </div>
+                <div class="code-snippets">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="html">HTML</button>
+                        <button class="tab-btn" data-tab="markdown">Markdown</button>
+                        <button class="tab-btn" data-tab="url">URL</button>
+                    </div>
+                    <div class="tab-content active" data-tab="html"><pre class="code-block" id="html-code"></pre><button class="copy-btn" data-code="html">Copy HTML</button></div>
+                    <div class="tab-content" data-tab="markdown"><pre class="code-block" id="markdown-code"></pre><button class="copy-btn" data-code="markdown">Copy Markdown</button></div>
+                    <div class="tab-content" data-tab="url"><pre class="code-block" id="url-code"></pre><button class="copy-btn" data-code="url">Copy URL</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p style="margin-bottom: .5rem;">Telemoji - Animated emoji &amp; flag collection</p>
+            <p style="font-size: .9rem; opacity: .9;">Emojis sourced from <a href="https://telegram.org" class="footer-link" target="_blank">Telegram</a> | Flags by <a href="https://github.com/Malith-Rukshan/animated-country-flags" class="footer-link" target="_blank">Malith Rukshan</a></p>
+            <p style="font-size: .85rem; margin-top: .5rem; opacity: .8;">Available in TGS and WebP formats for web and app development.</p>
+        </div>
+    </footer>
+    <script>
+        let data = [];
+        let currentItem = null;
+        let currentFormat = 'tgs';
+        let gridFormat = 'webp';
+        const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
+        const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', default_status: 'Status', channel_status: 'Channel', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
+        const container = document.getElementById('emoji-container');
+        const searchInput = document.getElementById('search-input');
+        const modal = document.getElementById('emoji-modal');
+        const modalClose = document.getElementById('modal-close');
+        const previewContainer = document.getElementById('preview-container');
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubtitle = document.getElementById('modal-subtitle');
+        const htmlCode = document.getElementById('html-code');
+        const markdownCode = document.getElementById('markdown-code');
+        const urlCode = document.getElementById('url-code');
+        const chips = document.getElementById('category-chips');
+        const stats = document.getElementById('stats');
+
+        function fmtPath(item, format) {
+            return format === 'tgs' ? item.file_tgs : item.file_webp;
+        }
+
+        function getSearchTerm() { return searchInput.value.toLowerCase().trim(); }
+
+        function filterData() {
+            const term = getSearchTerm();
+            const cat = document.querySelector('.chip.active')?.dataset?.cat;
+            return data.filter(d => {
+                if (cat && cat !== 'all' && d.type !== cat) return false;
+                if (!term) return true;
+                const emoji = d.emoji || '';
+                const code = d.code || d.emoji_code || '';
+                const name = d.name || '';
+                return emoji.toLowerCase().includes(term) || code.toLowerCase().includes(term) || name.toLowerCase().includes(term);
+            });
+        }
+
+        function render() {
+            const items = filterData();
+            if (!items.length) {
+                container.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Nothing found.</p></div>';
+            } else {
+                container.innerHTML = '';
+                for (const item of items) {
+                    const card = document.createElement('div');
+                    card.className = 'emoji-card';
+                    const preview = document.createElement('div');
+                    preview.className = 'emoji-preview';
+                    if (gridFormat === 'tgs') {
+                        const player = document.createElement('tgs-player');
+                        player.setAttribute('src', fmtPath(item, 'tgs'));
+                        player.setAttribute('autoplay', 'true');
+                        player.setAttribute('loop', 'true');
+                        player.style.width = '64px';
+                        player.style.height = '64px';
+                        preview.appendChild(player);
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = fmtPath(item, 'webp');
+                        img.alt = item.name || item.emoji_code || item.code;
+                        img.loading = 'lazy';
+                        preview.appendChild(img);
+                    }
+                    card.appendChild(preview);
+                    const label = document.createElement('div');
+                    label.className = 'emoji-label';
+                    label.textContent = item.name || item.emoji_code || item.code || item.emoji;
+                    card.appendChild(label);
+                    card.addEventListener('click', () => openModal(item));
+                    container.appendChild(card);
+                }
+            }
+            stats.textContent = `Showing ${items.length} of ${data.length} items`;
+        }
+
+        function buildChips() {
+            const cats = ['all', ...new Set(data.map(d => d.type))];
+            chips.innerHTML = '';
+            for (const cat of cats) {
+                const btn = document.createElement('button');
+                btn.className = 'chip' + (cat === activeCategory ? ' active' : '');
+                btn.dataset.cat = cat;
+                btn.textContent = cat === 'all' ? 'All' : (CATEGORY_LABELS[cat] || cat);
+                btn.addEventListener('click', () => {
+                    chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    render();
+                    const url = new URL(location);
+                    if (cat === 'all') url.searchParams.delete('category'); else url.searchParams.set('category', cat);
+                    history.replaceState({}, '', url);
+                });
+                chips.appendChild(btn);
+            }
+        }
+
+        function openModal(item) {
+            currentItem = item;
+            modalTitle.textContent = item.name || item.code || item.emoji_code || item.emoji || 'Item';
+            modalSubtitle.textContent = `Type: ${CATEGORY_LABELS[item.type] || item.type}` + (item.code ? ` | Code: ${item.code}` : '') + (item.variant ? ` | Variant: ${item.variant}` : '') + (item.face ? ` | Face: ${item.face}` : '');
+            updatePreview();
+            updateCode();
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() { modal.style.display = 'none'; document.body.style.overflow = ''; }
+
+        function updatePreview() {
+            previewContainer.innerHTML = '';
+            if (currentFormat === 'tgs') {
+                const player = document.createElement('tgs-player');
+                player.setAttribute('src', fmtPath(currentItem, 'tgs'));
+                player.setAttribute('autoplay', 'true');
+                player.setAttribute('loop', 'true');
+                player.style.width = '120px';
+                player.style.height = '120px';
+                previewContainer.appendChild(player);
+            } else {
+                const img = document.createElement('img');
+                img.src = fmtPath(currentItem, 'webp');
+                img.alt = currentItem.name || '';
+                previewContainer.appendChild(img);
+            }
+        }
+
+        function updateCode() {
+            const path = fmtPath(currentItem, currentFormat);
+            const ext = currentFormat === 'tgs' ? 'tgs' : 'webp';
+            htmlCode.textContent = currentFormat === 'tgs'
+                ? `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"><\/script>\n<tgs-player src="${path}" autoplay loop style="width:120px;height:120px;"></tgs-player>`
+                : `<img src="${path}" alt="${currentItem.name || ''}" style="max-width:120px;">`;
+            markdownCode.textContent = `![${currentItem.name || 'emoji'}](${path})`;
+            urlCode.textContent = path;
+        }
+
+        document.querySelectorAll('.format-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                if (parent.closest('.emoji-preview-modal')) {
+                    currentFormat = btn.dataset.format;
+                    updatePreview();
+                    updateCode();
+                }
+            });
+        });
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const tab = btn.dataset.tab;
+                parent.parentElement.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.dataset.tab === tab));
+            });
+        });
+
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.code;
+                const text = type === 'html' ? htmlCode.textContent : type === 'markdown' ? markdownCode.textContent : urlCode.textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const orig = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(() => btn.textContent = orig, 2000);
+                }).catch(() => alert('Copy failed'));
+            });
+        });
+
+        document.getElementById('fmt-tgs').addEventListener('click', () => {
+            document.getElementById('fmt-tgs').classList.add('active');
+            document.getElementById('fmt-webp').classList.remove('active');
+            gridFormat = 'tgs';
+            render();
+        });
+        document.getElementById('fmt-webp').addEventListener('click', () => {
+            document.getElementById('fmt-webp').classList.add('active');
+            document.getElementById('fmt-tgs').classList.remove('active');
+            gridFormat = 'webp';
+            render();
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        searchInput.addEventListener('input', render);
+
+        fetch('emojis.json').then(r => r.json()).then(d => {
+            data = d;
+            buildChips();
+            render();
+        }).catch(() => {
+            container.innerHTML = '<div class="no-results"><i class="fas fa-exclamation-circle"></i><p>Failed to load data.</p></div>';
+        });
+    </script>
+</body>
+</html>
