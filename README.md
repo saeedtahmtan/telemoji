@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./webp/animated/U+1F525_1.webp" alt="Telemoji" width="150px" height="150px"/>
+</p>
+
 # Telemoji
 
 Animated Telegram emoji + country flag collection in TGS and WebP formats.
