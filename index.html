@@ -190,9 +190,9 @@
                     preview.className = 'emoji-preview';
                     if (gridFormat === 'tgs') {
                         const player = document.createElement('tgs-player');
-                        player.setAttribute('src', fmtPath(item, 'tgs'));
-                        player.setAttribute('autoplay', 'true');
-                        player.setAttribute('loop', 'true');
+                        player.src = fmtPath(item, 'tgs');
+                        player.autoplay = true;
+                        player.loop = true;
                         player.style.width = '64px';
                         player.style.height = '64px';
                         preview.appendChild(player);
@@ -251,9 +251,9 @@
             previewContainer.innerHTML = '';
             if (currentFormat === 'tgs') {
                 const player = document.createElement('tgs-player');
-                player.setAttribute('src', fmtPath(currentItem, 'tgs'));
-                player.setAttribute('autoplay', 'true');
-                player.setAttribute('loop', 'true');
+                player.src = fmtPath(currentItem, 'tgs');
+                player.autoplay = true;
+                player.loop = true;
                 player.style.width = '120px';
                 player.style.height = '120px';
                 previewContainer.appendChild(player);
