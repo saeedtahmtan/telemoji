@@ -154,7 +154,7 @@
         let currentPage = 1;
         const PER_PAGE = 30;
         const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
-        const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', default_status: 'Status', channel_status: 'Channel', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
+        const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', status: 'Status', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
         const container = document.getElementById('emoji-container');
         const searchInput = document.getElementById('search-input');
         const modal = document.getElementById('emoji-modal');
@@ -179,7 +179,10 @@
             const term = getSearchTerm();
             const cat = document.querySelector('.chip.active')?.dataset?.cat;
             return data.filter(d => {
-                if (cat && cat !== 'all' && d.type !== cat) return false;
+                if (cat && cat !== 'all') {
+                    const types = cat === 'status' ? ['default_status', 'channel_status'] : [cat];
+                    if (!types.includes(d.type)) return false;
+                }
                 if (!term) return true;
                 const emoji = d.emoji || '';
                 const code = d.code || d.emoji_code || '';
@@ -258,7 +261,7 @@
         }
 
         function buildChips() {
-            const cats = ['all', ...new Set(data.map(d => d.type))];
+            const cats = ['all', ...new Set(data.map(d => d.type === 'default_status' || d.type === 'channel_status' ? 'status' : d.type))];
             chips.innerHTML = '';
             for (const cat of cats) {
                 const btn = document.createElement('button');
@@ -281,7 +284,8 @@
         function openModal(item) {
             currentItem = item;
             modalTitle.textContent = item.name || item.code || item.emoji_code || item.emoji || 'Item';
-            modalSubtitle.textContent = `Type: ${CATEGORY_LABELS[item.type] || item.type}` + (item.code ? ` | Code: ${item.code}` : '') + (item.variant ? ` | Variant: ${item.variant}` : '') + (item.face ? ` | Face: ${item.face}` : '');
+            const displayType = item.type === 'default_status' || item.type === 'channel_status' ? 'status' : item.type;
+            modalSubtitle.textContent = `Type: ${CATEGORY_LABELS[displayType] || displayType}` + (item.code ? ` | Code: ${item.code}` : '') + (item.variant ? ` | Variant: ${item.variant}` : '') + (item.face ? ` | Face: ${item.face}` : '');
             updatePreview();
             updateCode();
             modal.style.display = 'block';
