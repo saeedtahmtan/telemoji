@@ -32,6 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git pull --rebase
           git add webp/
           if git diff --staged --quiet; then
             echo "No new WebP files to commit"
