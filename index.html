@@ -177,6 +177,13 @@
 
         function destroyAnims() { activeAnims.forEach(a => a.destroy()); activeAnims = []; }
 
+        function loadTGS(container, path) {
+            fetch(path).then(r => r.json()).then(data => {
+                const anim = lottie.loadAnimation({ container, animationData: data, renderer: 'canvas', autoplay: true, loop: true });
+                activeAnims.push(anim);
+            }).catch(() => {});
+        }
+
         function getSearchTerm() { return searchInput.value.toLowerCase().trim(); }
 
         function filterData() {
@@ -223,8 +230,7 @@
                     animBox.style.width = '90px';
                     animBox.style.height = '90px';
                     preview.appendChild(animBox);
-                    const anim = lottie.loadAnimation({ container: animBox, path: fmtPath(item, 'tgs'), renderer: 'canvas', autoplay: true, loop: true });
-                    activeAnims.push(anim);
+                    loadTGS(animBox, fmtPath(item, 'tgs'));
                 } else {
                     const img = document.createElement('img');
                     img.src = fmtPath(item, 'webp');
@@ -306,7 +312,10 @@
                 animBox.style.width = '120px';
                 animBox.style.height = '120px';
                 previewContainer.appendChild(animBox);
-                modalAnim = lottie.loadAnimation({ container: animBox, path: fmtPath(currentItem, 'tgs'), renderer: 'canvas', autoplay: true, loop: true });
+                const path = fmtPath(currentItem, 'tgs');
+                fetch(path).then(r => r.json()).then(data => {
+                    modalAnim = lottie.loadAnimation({ container: animBox, animationData: data, renderer: 'canvas', autoplay: true, loop: true });
+                }).catch(() => {});
             } else {
                 const img = document.createElement('img');
                 img.src = fmtPath(currentItem, 'webp');
