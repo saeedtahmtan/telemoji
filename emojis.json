@@ -5809,7 +5809,7 @@
   },
   {
     "emoji": "👋",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F44B_1.tgs",
     "file_webp": "webp/default_status/U+1F44B_1.webp",
     "emoji_code": "U+1F44B",
@@ -5817,7 +5817,7 @@
   },
   {
     "emoji": "💤",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F4A4_1.tgs",
     "file_webp": "webp/default_status/U+1F4A4_1.webp",
     "emoji_code": "U+1F4A4",
@@ -5825,7 +5825,7 @@
   },
   {
     "emoji": "⛔",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+26D4_1.tgs",
     "file_webp": "webp/default_status/U+26D4_1.webp",
     "emoji_code": "U+26D4",
@@ -5833,7 +5833,7 @@
   },
   {
     "emoji": "🍴",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F374_1.tgs",
     "file_webp": "webp/default_status/U+1F374_1.webp",
     "emoji_code": "U+1F374",
@@ -5841,7 +5841,7 @@
   },
   {
     "emoji": "👣",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F463_1.tgs",
     "file_webp": "webp/default_status/U+1F463_1.webp",
     "emoji_code": "U+1F463",
@@ -5849,7 +5849,7 @@
   },
   {
     "emoji": "💼",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F4BC_1.tgs",
     "file_webp": "webp/default_status/U+1F4BC_1.webp",
     "emoji_code": "U+1F4BC",
@@ -5857,7 +5857,7 @@
   },
   {
     "emoji": "🏝",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F3DD_1.tgs",
     "file_webp": "webp/default_status/U+1F3DD_1.webp",
     "emoji_code": "U+1F3DD",
@@ -5865,7 +5865,7 @@
   },
   {
     "emoji": "🧘",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F9D8_1.tgs",
     "file_webp": "webp/default_status/U+1F9D8_1.webp",
     "emoji_code": "U+1F9D8",
@@ -5873,7 +5873,7 @@
   },
   {
     "emoji": "📞",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F4DE_1.tgs",
     "file_webp": "webp/default_status/U+1F4DE_1.webp",
     "emoji_code": "U+1F4DE",
@@ -5881,7 +5881,7 @@
   },
   {
     "emoji": "✈",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+2708_1.tgs",
     "file_webp": "webp/default_status/U+2708_1.webp",
     "emoji_code": "U+2708",
@@ -5889,97 +5889,9 @@
   },
   {
     "emoji": "🕓",
-    "type": "default_status",
+    "type": "status",
     "file_tgs": "tgs/default_status/U+1F553_1.tgs",
     "file_webp": "webp/default_status/U+1F553_1.webp",
-    "emoji_code": "U+1F553",
-    "variant": 1
-  },
-  {
-    "emoji": "👋",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F44B_1.tgs",
-    "file_webp": "webp/channel_status/U+1F44B_1.webp",
-    "emoji_code": "U+1F44B",
-    "variant": 1
-  },
-  {
-    "emoji": "💤",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F4A4_1.tgs",
-    "file_webp": "webp/channel_status/U+1F4A4_1.webp",
-    "emoji_code": "U+1F4A4",
-    "variant": 1
-  },
-  {
-    "emoji": "⛔",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+26D4_1.tgs",
-    "file_webp": "webp/channel_status/U+26D4_1.webp",
-    "emoji_code": "U+26D4",
-    "variant": 1
-  },
-  {
-    "emoji": "🍴",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F374_1.tgs",
-    "file_webp": "webp/channel_status/U+1F374_1.webp",
-    "emoji_code": "U+1F374",
-    "variant": 1
-  },
-  {
-    "emoji": "👣",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F463_1.tgs",
-    "file_webp": "webp/channel_status/U+1F463_1.webp",
-    "emoji_code": "U+1F463",
-    "variant": 1
-  },
-  {
-    "emoji": "💼",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F4BC_1.tgs",
-    "file_webp": "webp/channel_status/U+1F4BC_1.webp",
-    "emoji_code": "U+1F4BC",
-    "variant": 1
-  },
-  {
-    "emoji": "🏝",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F3DD_1.tgs",
-    "file_webp": "webp/channel_status/U+1F3DD_1.webp",
-    "emoji_code": "U+1F3DD",
-    "variant": 1
-  },
-  {
-    "emoji": "🧘",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F9D8_1.tgs",
-    "file_webp": "webp/channel_status/U+1F9D8_1.webp",
-    "emoji_code": "U+1F9D8",
-    "variant": 1
-  },
-  {
-    "emoji": "📞",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F4DE_1.tgs",
-    "file_webp": "webp/channel_status/U+1F4DE_1.webp",
-    "emoji_code": "U+1F4DE",
-    "variant": 1
-  },
-  {
-    "emoji": "✈",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+2708_1.tgs",
-    "file_webp": "webp/channel_status/U+2708_1.webp",
-    "emoji_code": "U+2708",
-    "variant": 1
-  },
-  {
-    "emoji": "🕓",
-    "type": "channel_status",
-    "file_tgs": "tgs/channel_status/U+1F553_1.tgs",
-    "file_webp": "webp/channel_status/U+1F553_1.webp",
     "emoji_code": "U+1F553",
     "variant": 1
   },
