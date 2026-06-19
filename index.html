@@ -23,8 +23,9 @@
     <style>
         :root { --primary: #3a86ff; --primary-dark: #2667cc; --background: #f8f9fa; --card-bg: #fff; --text-primary: #212529; --text-secondary: #6c757d; --border: #e9ecef; --shadow: rgba(0,0,0,0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--background); color: var(--text-primary); line-height: 1.6; }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 2rem 0; }
+        html, body { height: 100%; }
+        body { font-family: 'Inter', sans-serif; background: var(--background); color: var(--text-primary); line-height: 1.6; display: flex; flex-direction: column; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 2rem 0; flex: 1; display: flex; flex-direction: column; min-height: 0; }
         header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; padding: 2.5rem 0; text-align: center; }
         header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
         header p { font-size: 1.1rem; opacity: 0.9; }
@@ -36,9 +37,8 @@
         .chip { padding: .5rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--card-bg); cursor: pointer; font-size: .9rem; font-weight: 500; transition: all .2s; }
         .chip:hover { border-color: var(--primary); color: var(--primary); }
         .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-        .emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 1rem; }
-        .emoji-card { background: var(--card-bg); border-radius: 10px; padding: 1rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
-        .emoji-card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px var(--shadow); }
+        .emoji-grid { flex: 1; overflow-y: auto; position: relative; min-height: 0; }
+        .emoji-card { background: var(--card-bg); border-radius: 10px; padding: 1rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
         .emoji-preview { height: 80px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
         .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
         .emoji-preview tgs-player { width: 64px; height: 64px; }
@@ -76,7 +76,7 @@
         footer { background: #212529; color: #fff; text-align: center; padding: 2rem 0; margin-top: 3rem; }
         .footer-link { color: #4cc9f0; text-decoration: none; }
         .footer-link:hover { opacity: .8; }
-        @media (max-width: 768px) { .emoji-grid { grid-template-columns: repeat(auto-fill, minmax(80px,1fr)); gap: .75rem; } .modal-content { margin: 1rem; width: calc(100% - 2rem); } .modal-header { padding: 1rem 1.5rem; } .modal-body { padding: 1.5rem; } .modal-title { font-size: 1.1rem; } .preview-box { width: 120px; height: 100px; } }
+        @media (max-width: 768px) { .modal-content { margin: 1rem; width: calc(100% - 2rem); } .modal-header { padding: 1rem 1.5rem; } .modal-body { padding: 1.5rem; } .modal-title { font-size: 1.1rem; } .preview-box { width: 120px; height: 100px; } }
     </style>
 </head>
 <body>
@@ -143,6 +143,10 @@
         let currentItem = null;
         let currentFormat = 'tgs';
         let gridFormat = 'tgs';
+        let items = [];
+        let firstRow = -1, lastRow = -1, cols = 0, totalRows = 0;
+        let renderPending = false;
+        const CARD_W = 100, CARD_H = 140, GAP = 16, BUFFER = 3;
         const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
         const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', default_status: 'Status', channel_status: 'Channel', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
         const container = document.getElementById('emoji-container');
@@ -177,42 +181,93 @@
             });
         }
 
+        function createCardEl(item) {
+            const card = document.createElement('div');
+            card.className = 'emoji-card';
+            const preview = document.createElement('div');
+            preview.className = 'emoji-preview';
+            if (gridFormat === 'tgs') {
+                const player = document.createElement('tgs-player');
+                player.src = fmtPath(item, 'tgs');
+                player.autoplay = true;
+                player.loop = true;
+                player.style.width = '64px';
+                player.style.height = '64px';
+                preview.appendChild(player);
+            } else {
+                const img = document.createElement('img');
+                img.src = fmtPath(item, 'webp');
+                img.alt = item.name || item.emoji_code || item.code;
+                img.loading = 'lazy';
+                preview.appendChild(img);
+            }
+            card.appendChild(preview);
+            const label = document.createElement('div');
+            label.className = 'emoji-label';
+            label.textContent = item.name || item.emoji_code || item.code || item.emoji;
+            card.appendChild(label);
+            card.addEventListener('click', () => openModal(item));
+            return card;
+        }
+
         function render() {
-            const items = filterData();
+            renderPending = false;
+            items = filterData();
             if (!items.length) {
                 container.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><p>Nothing found.</p></div>';
-            } else {
-                container.innerHTML = '';
-                for (const item of items) {
-                    const card = document.createElement('div');
-                    card.className = 'emoji-card';
-                    const preview = document.createElement('div');
-                    preview.className = 'emoji-preview';
-                    if (gridFormat === 'tgs') {
-                        const player = document.createElement('tgs-player');
-                        player.src = fmtPath(item, 'tgs');
-                        player.autoplay = true;
-                        player.loop = true;
-                        player.style.width = '64px';
-                        player.style.height = '64px';
-                        preview.appendChild(player);
-                    } else {
-                        const img = document.createElement('img');
-                        img.src = fmtPath(item, 'webp');
-                        img.alt = item.name || item.emoji_code || item.code;
-                        img.loading = 'lazy';
-                        preview.appendChild(img);
-                    }
-                    card.appendChild(preview);
-                    const label = document.createElement('div');
-                    label.className = 'emoji-label';
-                    label.textContent = item.name || item.emoji_code || item.code || item.emoji;
-                    card.appendChild(label);
-                    card.addEventListener('click', () => openModal(item));
-                    container.appendChild(card);
+                stats.textContent = `Showing 0 of ${data.length} items`;
+                return;
+            }
+
+            const cw = container.clientWidth;
+            cols = Math.max(1, Math.floor((cw + GAP) / (CARD_W + GAP)));
+            totalRows = Math.ceil(items.length / cols);
+            const rowH = CARD_H + GAP;
+            const totalH = totalRows * rowH - GAP;
+
+            const st = container.scrollTop;
+            const vh = container.clientHeight;
+
+            const newFirst = Math.max(0, Math.floor(st / rowH) - BUFFER);
+            const newLast = Math.min(totalRows - 1, Math.ceil((st + vh) / rowH) + BUFFER - 1);
+
+            if (newFirst === firstRow && newLast === lastRow) return;
+
+            firstRow = newFirst;
+            lastRow = newLast;
+
+            let spacer = container.querySelector('.vs-spacer');
+            if (!spacer) {
+                spacer = document.createElement('div');
+                spacer.className = 'vs-spacer';
+                container.appendChild(spacer);
+            }
+            spacer.style.height = totalH + 'px';
+            spacer.style.position = 'relative';
+            spacer.innerHTML = '';
+
+            for (let r = firstRow; r <= lastRow; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const idx = r * cols + c;
+                    if (idx >= items.length) break;
+                    const card = createCardEl(items[idx]);
+                    card.style.position = 'absolute';
+                    card.style.top = (r * rowH) + 'px';
+                    card.style.left = (c * (CARD_W + GAP)) + 'px';
+                    card.style.width = CARD_W + 'px';
+                    card.style.height = CARD_H + 'px';
+                    spacer.appendChild(card);
                 }
             }
+
             stats.textContent = `Showing ${items.length} of ${data.length} items`;
+        }
+
+        function scheduleRender() {
+            if (!renderPending) {
+                renderPending = true;
+                requestAnimationFrame(render);
+            }
         }
 
         function buildChips() {
@@ -226,6 +281,8 @@
                 btn.addEventListener('click', () => {
                     chips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
                     btn.classList.add('active');
+                    firstRow = lastRow = -1;
+                    container.scrollTop = 0;
                     render();
                     const url = new URL(location);
                     if (cat === 'all') url.searchParams.delete('category'); else url.searchParams.set('category', cat);
@@ -314,18 +371,24 @@
             document.getElementById('fmt-webp').classList.add('active');
             document.getElementById('fmt-tgs').classList.remove('active');
             gridFormat = 'webp';
+            firstRow = lastRow = -1;
+            container.scrollTop = 0;
             render();
         });
         document.getElementById('fmt-tgs').addEventListener('click', () => {
             document.getElementById('fmt-tgs').classList.add('active');
             document.getElementById('fmt-webp').classList.remove('active');
             gridFormat = 'tgs';
+            firstRow = lastRow = -1;
+            container.scrollTop = 0;
             render();
         });
 
         modalClose.addEventListener('click', closeModal);
         window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-        searchInput.addEventListener('input', render);
+        searchInput.addEventListener('input', () => { firstRow = lastRow = -1; container.scrollTop = 0; render(); });
+        container.addEventListener('scroll', scheduleRender);
+        window.addEventListener('resize', () => { firstRow = lastRow = -1; render(); });
 
         fetch('emojis.json').then(r => r.json()).then(d => {
             data = d;
