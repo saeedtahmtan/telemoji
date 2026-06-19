@@ -16,7 +16,7 @@
     <meta property="og:description" content="Free animated emojis and country flags in TGS and WebP formats.">
     <meta property="og:image" content="og-image.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -41,7 +41,7 @@
         .emoji-card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px var(--shadow); }
         .emoji-preview { height: 100px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
         .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
-        .emoji-preview canvas { display: block; width: 90px !important; height: 90px !important; }
+        .emoji-preview tgs-player { width: 90px; height: 90px; }
         .emoji-label { font-size: .8rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .emoji-card[data-type="default_status"], .emoji-card[data-type="channel_status"] { background: #1a1a2e; }
         .emoji-card[data-type="default_status"] .emoji-label, .emoji-card[data-type="channel_status"] .emoji-label { color: #adb5bd; }
@@ -59,7 +59,7 @@
         .emoji-preview-modal { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
         .preview-box { width: 160px; height: 120px; background: rgba(0,0,0,0.02); border-radius: 8px; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border); }
         .preview-box img { max-width: 100%; max-height: 100%; }
-        .preview-box canvas { display: block; width: 120px !important; height: 120px !important; }
+        .preview-box tgs-player { width: 120px; height: 120px; }
         .code-snippets { margin-top: 1.5rem; }
         .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
         .tab-btn { padding: .6rem 1.2rem; background: none; border: none; border-bottom: 2px solid transparent; font-weight: 500; cursor: pointer; transition: all .2s; }
@@ -152,8 +152,6 @@
         let currentFormat = 'tgs';
         let gridFormat = 'tgs';
         let currentPage = 1;
-        let activeAnims = [];
-        let modalAnim = null;
         const PER_PAGE = 30;
         const activeCategory = new URLSearchParams(location.search).get('category') || 'all';
         const CATEGORY_LABELS = { animated: 'Animated', reactions: 'Reactions', dice: 'Dice', generic_anim: 'Generic', status: 'Status', topic_icons: 'Topics', premium_gifts: 'Gifts', flags: 'Flags' };
@@ -173,15 +171,6 @@
 
         function fmtPath(item, format) {
             return format === 'tgs' ? item.file_tgs : item.file_webp;
-        }
-
-        function destroyAnims() { activeAnims.forEach(a => a.destroy()); activeAnims = []; }
-
-        function loadTGS(container, path) {
-            fetch(path).then(r => r.json()).then(data => {
-                const anim = lottie.loadAnimation({ container, animationData: data, renderer: 'canvas', autoplay: true, loop: true });
-                activeAnims.push(anim);
-            }).catch(() => {});
         }
 
         function getSearchTerm() { return searchInput.value.toLowerCase().trim(); }
@@ -214,7 +203,6 @@
                 return;
             }
 
-            destroyAnims();
             container.innerHTML = '';
             const start = (currentPage - 1) * PER_PAGE;
             const pageItems = items.slice(start, start + PER_PAGE);
@@ -226,11 +214,13 @@
                 const preview = document.createElement('div');
                 preview.className = 'emoji-preview';
                 if (gridFormat === 'tgs') {
-                    const animBox = document.createElement('div');
-                    animBox.style.width = '90px';
-                    animBox.style.height = '90px';
-                    preview.appendChild(animBox);
-                    loadTGS(animBox, fmtPath(item, 'tgs'));
+                    const player = document.createElement('tgs-player');
+                    player.src = fmtPath(item, 'tgs');
+                    player.autoplay = true;
+                    player.loop = true;
+                    player.style.width = '90px';
+                    player.style.height = '90px';
+                    preview.appendChild(player);
                 } else {
                     const img = document.createElement('img');
                     img.src = fmtPath(item, 'webp');
@@ -302,20 +292,18 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() { if (modalAnim) { modalAnim.destroy(); modalAnim = null; } modal.style.display = 'none'; document.body.style.overflow = ''; }
+        function closeModal() { modal.style.display = 'none'; document.body.style.overflow = ''; }
 
         function updatePreview() {
-            if (modalAnim) { modalAnim.destroy(); modalAnim = null; }
             previewContainer.innerHTML = '';
             if (currentFormat === 'tgs') {
-                const animBox = document.createElement('div');
-                animBox.style.width = '120px';
-                animBox.style.height = '120px';
-                previewContainer.appendChild(animBox);
-                const path = fmtPath(currentItem, 'tgs');
-                fetch(path).then(r => r.json()).then(data => {
-                    modalAnim = lottie.loadAnimation({ container: animBox, animationData: data, renderer: 'canvas', autoplay: true, loop: true });
-                }).catch(() => {});
+                const player = document.createElement('tgs-player');
+                player.src = fmtPath(currentItem, 'tgs');
+                player.autoplay = true;
+                player.loop = true;
+                player.style.width = '120px';
+                player.style.height = '120px';
+                previewContainer.appendChild(player);
             } else {
                 const img = document.createElement('img');
                 img.src = fmtPath(currentItem, 'webp');
