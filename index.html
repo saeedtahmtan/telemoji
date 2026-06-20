@@ -184,7 +184,7 @@
             const cat = document.querySelector('.chip.active')?.dataset?.cat;
             return data.filter(d => {
                 if (cat && cat !== 'all') {
-                    const types = cat === 'status' ? ['default_status', 'channel_status'] : [cat];
+                    const types = [cat];
                     if (!types.includes(d.type)) return false;
                 }
                 if (!term) return true;
@@ -265,7 +265,7 @@
         }
 
         function buildChips() {
-            const cats = ['all', ...new Set(data.map(d => d.type === 'default_status' || d.type === 'channel_status' ? 'status' : d.type))];
+            const cats = ['all', ...new Set(data.map(d => d.type))];
             chips.innerHTML = '';
             for (const cat of cats) {
                 const btn = document.createElement('button');
@@ -288,7 +288,7 @@
         function openModal(item) {
             currentItem = item;
             modalTitle.textContent = item.name || item.code || item.emoji_code || item.emoji || 'Item';
-            const displayType = item.type === 'default_status' || item.type === 'channel_status' ? 'status' : item.type;
+            const displayType = item.type;
             modalSubtitle.textContent = `Type: ${CATEGORY_LABELS[displayType] || displayType}` + (item.code ? ` | Code: ${item.code}` : '') + (item.variant ? ` | Variant: ${item.variant}` : '') + (item.face ? ` | Face: ${item.face}` : '');
             updatePreview();
             updateCode();
