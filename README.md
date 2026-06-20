@@ -7,6 +7,7 @@
 <div align='center'>
 
 [![TGS Format](https://img.shields.io/badge/TGS-Telegram_Stickers-0088CC?logo=telegram&style=flat)](https://core.telegram.org/animated_stickers)
+[![Lottie Format](https://img.shields.io/badge/Lottie-JSON-00D2D3?logo=lottie&style=flat)](https://lottiefiles.com/)
 [![WebP Format](https://img.shields.io/badge/WebP-Animated-4285F4?logo=google&style=flat)](https://developers.google.com/speed/webp)
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-222222?logo=github&style=flat)](https://saeedtahmtan.github.io/telemoji/)
 
@@ -17,14 +18,14 @@
 <div align="center">
   - High-quality animated emojis and flags from around the world -
   <br/>
-  <sup><sub>Available in both TGS and WebP formats ツ</sub></sup>
+  <sup><sub>Available in TGS, Lottie JSON, and WebP formats ツ</sub></sup>
 </div>
 
 ## ✨ Features
 
 - 🎨 1192 animated emojis + 251 country flags
 - 🌍 Flags for 200+ countries and organizations
-- 🚀 Multiple formats (TGS, WebP)
+- 🚀 Multiple formats (TGS, Lottie JSON, WebP)
 - 📱 Easy to integrate via CDN
 - 🔍 Searchable browser interface with preview
 - 🌓 Format switching for different use cases
@@ -42,7 +43,17 @@ Visit our [GitHub Pages site](https://saeedtahmtan.github.io/telemoji/) to brows
      style="width: 120px;">
 ```
 
-### TGS Format (For applications supporting Lottie animations)
+### Lottie JSON Format (For Lottie-compatible players)
+
+```html
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F600_1.json"
+               autoplay loop
+               style="width: 120px; height: 120px;">
+</lottie-player>
+```
+
+### TGS Format (For applications supporting Telegram Stickers)
 
 ```html
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"></script>
@@ -66,17 +77,23 @@ Visit our [GitHub Pages site](https://saeedtahmtan.github.io/telemoji/) to brows
 
 ## 📸 Examples
 
-| Emoji | Name | TGS | WebP |
-|-------|------|-----|------|
-| 🔥 | Fire | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F525_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F525_1.webp) |
-| ❤️ | Red Heart | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+2764_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+2764_1.webp) |
-| 😂 | Face with Tears of Joy | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F602_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F602_1.webp) |
-| 🎉 | Party Popper | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F389_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F389_1.webp) |
-| 🇺🇳 | United Nations | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/UN.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/UN.webp) |
-| 🇺🇸 | United States | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/US.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/US.webp) |
-| 🇬🇧 | United Kingdom | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/GB.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/GB.webp) |
+| Emoji | Name | Lottie | TGS | WebP |
+|-------|------|--------|-----|------|
+| 🔥 | Fire | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F525_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F525_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F525_1.webp) |
+| ❤️ | Red Heart | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+2764_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+2764_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+2764_1.webp) |
+| 😂 | Face with Tears of Joy | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F602_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F602_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F602_1.webp) |
+| 🎉 | Party Popper | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F389_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F389_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F389_1.webp) |
+| 🇺🇳 | United Nations | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/UN.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/UN.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/UN.webp) |
+| 🇺🇸 | United States | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/US.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/US.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/US.webp) |
+| 🇬🇧 | United Kingdom | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/GB.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/GB.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/GB.webp) |
 
 ## 🔍 Format Comparison
+
+### Lottie JSON
+- Standard vector animation format by Bodymovin
+- Widely supported across web and mobile (LottieFiles, Rive, etc.)
+- Requires Lottie-compatible player to render
+- Larger file size than TGS but easier to integrate with standard Lottie tooling
 
 ### TGS (Telegram Sticker)
 - Compressed format based on Lottie JSON
@@ -112,13 +129,15 @@ tgs/          # TGS (Telegram Sticker) source files
   animated/   reactions/   dice/
   generic_anim/   default_status/   channel_status/
   topic_icons/   premium_gifts/   flags/
-webp/         # Converted WebP files (same structure)
+lottie/       # Lottie JSON files (mirrors TGS structure)
+webp/         # Converted WebP files (same structure, tracked via Git LFS)
 emojis.json   # Unified metadata for all 1192 items
 index.html    # Browser to preview, search, and copy embed code
 flags.json    # Flag metadata (name, code, emoji)
 scripts/
-  download_animated_emojis.py   # Downloads TGS from Telegram
-  convert_tgs_to_webp.py        # Batch TGS→WebP conversion
+  download_animated_emojis.py    # Downloads TGS from Telegram
+  convert_tgs_to_webp.py         # Batch TGS→WebP conversion
+  copy_tgs_to_lottie.py          # Syncs TGS → Lottie JSON
 ```
 
 ## 💻 GitHub Pages Interface
@@ -127,7 +146,7 @@ Browse all emojis and flags at [saeedtahmtan.github.io/telemoji/](https://saeedt
 
 - Search by emoji name or Unicode code
 - Filter by category
-- Preview animations in both TGS and WebP
+- Preview animations in Lottie, TGS, and WebP
 - Get ready-to-use HTML, Markdown, and CDN links
 - Click any emoji for a detailed view with copyable code snippets
 
@@ -143,6 +162,7 @@ Browse all emojis and flags at [saeedtahmtan.github.io/telemoji/](https://saeedt
 
 - Emoji animations sourced from [Telegram](https://telegram.org)'s Animated Emoji pack
 - Country flags by [Malith Rukshan / animated-country-flags](https://github.com/Malith-Rukshan/animated-country-flags)
+- Lottie JSON files are direct copies of the TGS sources (same Bodymovin format)
 - WebP files are converted from TGS sources using `rlottie-python`
 
 ## 📜 License
