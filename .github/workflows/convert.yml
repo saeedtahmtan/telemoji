@@ -15,9 +15,15 @@ jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
+      - name: Install Git LFS
+        run: |
+          git lfs install
+          git lfs track 'webp/**/*.webp'
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+          lfs: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -44,21 +50,32 @@ jobs:
           CHANGED="${{ steps.changed.outputs.changed }}"
           if [ -n "$CHANGED" ]; then
             echo "Converting changed files: $CHANGED"
-            python scripts/convert_tgs_to_webp.py --files $CHANGED
+            python scripts/convert_tgs_to_webp.py --quality 70 --method 6 --files $CHANGED
           else
             echo "No specific files detected — converting all with --skip-existing"
-            python scripts/convert_tgs_to_webp.py --skip-existing --jobs 4
+            python scripts/convert_tgs_to_webp.py --quality 70 --method 6 --skip-existing --jobs 4
           fi
 
-      - name: Commit WebP files
+      - name: Copy changed TGS to Lottie JSON
+        run: |
+          CHANGED="${{ steps.changed.outputs.changed }}"
+          if [ -n "$CHANGED" ]; then
+            echo "Copying changed files to lottie/: $CHANGED"
+            python scripts/copy_tgs_to_lottie.py --files $CHANGED
+          else
+            echo "No specific files detected — copying all"
+            python scripts/copy_tgs_to_lottie.py
+          fi
+
+      - name: Commit WebP and Lottie files
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git pull --rebase
-          git add webp/
+          git add webp/ lottie/ .gitattributes
           if git diff --staged --quiet; then
-            echo "No new WebP files to commit"
+            echo "No new files to commit"
           else
-            git commit -m "convert TGS to animated WebP"
+            git commit -m "convert TGS to WebP (LFS) and sync Lottie JSON"
             git push
           fi

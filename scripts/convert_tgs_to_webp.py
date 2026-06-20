@@ -10,7 +10,7 @@ WEBP_EXT = ".webp"
 
 
 def convert_one(args):
-    tgs_path, webp_path = args
+    tgs_path, webp_path, quality, method = args
     try:
         from rlottie_python import LottieAnimation
         anim = LottieAnimation.from_tgs(str(tgs_path))
@@ -22,6 +22,7 @@ def convert_one(args):
         frames[0].save(
             str(webp_path), save_all=True, append_images=frames[1:],
             loop=0, duration=duration_ms, format="WEBP",
+            quality=quality, method=method,
         )
         return (tgs_path, webp_path, None)
     except Exception as e:
@@ -32,9 +33,11 @@ def main():
     parser = argparse.ArgumentParser(description="Batch convert TGS to animated WebP")
     parser.add_argument("--input", default="tgs")
     parser.add_argument("--output", default="webp")
-    parser.add_argument("--skip-existing", action="store_true", default=True)
+    parser.add_argument("--skip-existing", action="store_true", default=False)
     parser.add_argument("--files", nargs="*", help="Only convert these TGS files (relative to --input)")
     parser.add_argument("--jobs", type=int, default=cpu_count(), help="Parallel workers")
+    parser.add_argument("--quality", type=int, default=70, help="WebP quality 0-100 (default 70)")
+    parser.add_argument("--method", type=int, default=6, help="WebP compression method 0-6 (default 6, slowest=best)")
     args = parser.parse_args()
 
     input_root = Path(args.input)
@@ -58,7 +61,7 @@ def main():
         webp_path = output_root / rel.with_suffix(WEBP_EXT)
         if args.skip_existing and webp_path.exists():
             continue
-        batch.append((tgs_path, webp_path))
+        batch.append((tgs_path, webp_path, args.quality, args.method))
 
     if not batch:
         print("All WebP files already exist — nothing to do")

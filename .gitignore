@@ -9,3 +9,5 @@
 node_modules/
 
 # Downloaded emoji artifacts already captured
+
+# WebP tracked via Git LFS — pointer files are committed, blobs are offloaded

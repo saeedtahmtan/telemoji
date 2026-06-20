@@ -43,8 +43,8 @@
         .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
         .emoji-preview tgs-player { width: 90px; height: 90px; }
         .emoji-label { font-size: .8rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .emoji-card[data-type="default_status"], .emoji-card[data-type="channel_status"] { background: #1a1a2e; }
-        .emoji-card[data-type="default_status"] .emoji-label, .emoji-card[data-type="channel_status"] .emoji-label { color: #adb5bd; }
+        .emoji-card[data-type="status"] { background: #1a1a2e; }
+        .emoji-card[data-type="status"] .emoji-label { color: #adb5bd; }
         .format-selector { display: flex; justify-content: center; margin-bottom: 1.5rem; }
         .format-switch { display: flex; background: #f1f3f5; border-radius: 8px; padding: .3rem; }
         .format-btn { padding: .5rem 1.2rem; border: none; background: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; }
@@ -104,6 +104,7 @@
             <div class="format-switch">
                 <button class="format-btn" id="fmt-webp" data-format="webp">WebP</button>
                 <button class="format-btn active" id="fmt-tgs" data-format="tgs">TGS</button>
+                <button class="format-btn" id="fmt-lottie" data-format="lottie">Lottie</button>
             </div>
         </div>
         <div id="emoji-container" class="emoji-grid">
@@ -122,6 +123,7 @@
                     <div class="format-switch">
                         <button class="format-btn active" data-format="tgs">TGS</button>
                         <button class="format-btn" data-format="webp">WebP</button>
+                        <button class="format-btn" data-format="lottie">Lottie</button>
                     </div>
                     <div class="preview-box" id="preview-container"></div>
                     <p id="modal-subtitle" style="margin-top: .5rem; color: var(--text-secondary); font-size: .9rem;"></p>
@@ -170,7 +172,9 @@
         const pagination = document.getElementById('pagination');
 
         function fmtPath(item, format) {
-            return format === 'tgs' ? item.file_tgs : item.file_webp;
+            if (format === 'tgs') return item.file_tgs;
+            if (format === 'lottie') return item.file_lottie;
+            return item.file_webp;
         }
 
         function getSearchTerm() { return searchInput.value.toLowerCase().trim(); }
@@ -213,9 +217,9 @@
                 card.dataset.type = item.type;
                 const preview = document.createElement('div');
                 preview.className = 'emoji-preview';
-                if (gridFormat === 'tgs') {
+                if (gridFormat === 'tgs' || gridFormat === 'lottie') {
                     const player = document.createElement('tgs-player');
-                    player.src = fmtPath(item, 'tgs');
+                    player.src = fmtPath(item, gridFormat);
                     player.autoplay = true;
                     player.loop = true;
                     player.style.width = '90px';
@@ -296,9 +300,9 @@
 
         function updatePreview() {
             previewContainer.innerHTML = '';
-            if (currentFormat === 'tgs') {
+            if (currentFormat === 'tgs' || currentFormat === 'lottie') {
                 const player = document.createElement('tgs-player');
-                player.src = fmtPath(currentItem, 'tgs');
+                player.src = fmtPath(currentItem, currentFormat);
                 player.autoplay = true;
                 player.loop = true;
                 player.style.width = '120px';
@@ -314,8 +318,8 @@
 
         function updateCode() {
             const path = fmtPath(currentItem, currentFormat);
-            const ext = currentFormat === 'tgs' ? 'tgs' : 'webp';
-            htmlCode.textContent = currentFormat === 'tgs'
+            const isTgsOrLottie = currentFormat === 'tgs' || currentFormat === 'lottie';
+            htmlCode.textContent = isTgsOrLottie
                 ? `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"><\/script>\n<tgs-player src="${path}" autoplay loop style="width:120px;height:120px;"></tgs-player>`
                 : `<img src="${path}" alt="${currentItem.name || ''}" style="max-width:120px;">`;
             markdownCode.textContent = `![${currentItem.name || 'emoji'}](${path})`;
@@ -357,20 +361,16 @@
             });
         });
 
-        document.getElementById('fmt-webp').addEventListener('click', () => {
-            document.getElementById('fmt-webp').classList.add('active');
-            document.getElementById('fmt-tgs').classList.remove('active');
-            gridFormat = 'webp';
+        function setGridFormat(fmt) {
+            document.querySelectorAll('.format-selector .format-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('fmt-' + fmt).classList.add('active');
+            gridFormat = fmt;
             currentPage = 1;
             render();
-        });
-        document.getElementById('fmt-tgs').addEventListener('click', () => {
-            document.getElementById('fmt-tgs').classList.add('active');
-            document.getElementById('fmt-webp').classList.remove('active');
-            gridFormat = 'tgs';
-            currentPage = 1;
-            render();
-        });
+        }
+        document.getElementById('fmt-webp').addEventListener('click', () => setGridFormat('webp'));
+        document.getElementById('fmt-tgs').addEventListener('click', () => setGridFormat('tgs'));
+        document.getElementById('fmt-lottie').addEventListener('click', () => setGridFormat('lottie'));
 
         modalClose.addEventListener('click', closeModal);
         window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
