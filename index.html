@@ -37,14 +37,13 @@
         .chip:hover { border-color: var(--primary); color: var(--primary); }
         .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
         .emoji-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 1.25rem; }
-        .emoji-card { background: var(--card-bg); border-radius: 12px; padding: 1.25rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+        .emoji-card { background: #1a1a2e; border-radius: 12px; padding: 1.25rem .75rem; text-align: center; cursor: pointer; box-shadow: 0 4px 6px var(--shadow); transition: transform .3s, box-shadow .3s; border: 1px solid #2a2a3e; display: flex; flex-direction: column; align-items: center; }
         .emoji-card:hover { transform: translateY(-3px); box-shadow: 0 8px 12px var(--shadow); }
         .emoji-preview { height: 100px; display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: .5rem; }
         .emoji-preview img { max-height: 100%; max-width: 100%; border-radius: 4px; }
         .emoji-preview tgs-player { width: 90px; height: 90px; }
-        .emoji-label { font-size: .8rem; color: var(--text-secondary); word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .emoji-card[data-type="status"] { background: #1a1a2e; }
-        .emoji-card[data-type="status"] .emoji-label { color: #adb5bd; }
+        .emoji-label { font-size: .8rem; color: #adb5bd; word-break: break-all; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
         .format-selector { display: flex; justify-content: center; margin-bottom: 1.5rem; }
         .format-switch { display: flex; background: #f1f3f5; border-radius: 8px; padding: .3rem; }
         .format-btn { padding: .5rem 1.2rem; border: none; background: none; border-radius: 6px; font-weight: 500; cursor: pointer; transition: all .2s; }
