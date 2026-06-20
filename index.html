@@ -299,11 +299,20 @@
 
         function updatePreview() {
             previewContainer.innerHTML = '';
-            if (currentFormat === 'tgs' || currentFormat === 'lottie') {
+            if (currentFormat === 'tgs') {
                 const player = document.createElement('tgs-player');
-                player.src = fmtPath(currentItem, currentFormat);
+                player.src = fmtPath(currentItem, 'tgs');
                 player.autoplay = true;
                 player.loop = true;
+                player.style.width = '120px';
+                player.style.height = '120px';
+                previewContainer.appendChild(player);
+            } else if (currentFormat === 'lottie') {
+                const player = document.createElement('lottie-player');
+                player.src = fmtPath(currentItem, 'lottie');
+                player.autoplay = true;
+                player.loop = true;
+                player.renderer = 'canvas';
                 player.style.width = '120px';
                 player.style.height = '120px';
                 previewContainer.appendChild(player);
@@ -317,10 +326,13 @@
 
         function updateCode() {
             const path = fmtPath(currentItem, currentFormat);
-            const isTgsOrLottie = currentFormat === 'tgs' || currentFormat === 'lottie';
-            htmlCode.textContent = isTgsOrLottie
-                ? `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"><\/script>\n<tgs-player src="${path}" autoplay loop style="width:120px;height:120px;"></tgs-player>`
-                : `<img src="${path}" alt="${currentItem.name || ''}" style="max-width:120px;">`;
+            if (currentFormat === 'tgs') {
+                htmlCode.textContent = `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/tgs-player.js"><\/script>\n<tgs-player src="${path}" autoplay loop style="width:120px;height:120px;"></tgs-player>`;
+            } else if (currentFormat === 'lottie') {
+                htmlCode.textContent = `<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"><\/script>\n<lottie-player src="${path}" autoplay loop renderer="canvas" style="width:120px;height:120px;"></lottie-player>`;
+            } else {
+                htmlCode.textContent = `<img src="${path}" alt="${currentItem.name || ''}" style="max-width:120px;">`;
+            }
             markdownCode.textContent = `![${currentItem.name || 'emoji'}](${path})`;
             urlCode.textContent = path;
         }
