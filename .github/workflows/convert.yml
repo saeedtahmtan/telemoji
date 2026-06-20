@@ -15,15 +15,13 @@ jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Git LFS
-        run: |
-          git lfs install
-          git lfs track 'webp/**/*.webp'
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
           lfs: true
+
+      - name: Install Git LFS
+        run: git lfs install
 
       - name: Set up Python
         uses: actions/setup-python@v5
