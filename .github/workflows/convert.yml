@@ -48,10 +48,10 @@ jobs:
           CHANGED="${{ steps.changed.outputs.changed }}"
           if [ -n "$CHANGED" ]; then
             echo "Converting changed files: $CHANGED"
-            python scripts/convert_tgs_to_webp.py --quality 70 --method 6 --files $CHANGED
+            python scripts/convert_tgs_to_webp.py --quality 70 --method 4 --files $CHANGED
           else
             echo "No specific files detected — converting all with --skip-existing"
-            python scripts/convert_tgs_to_webp.py --quality 70 --method 6 --skip-existing --jobs 4
+            python scripts/convert_tgs_to_webp.py --quality 70 --method 4 --skip-existing --jobs 4
           fi
 
       - name: Copy changed TGS to Lottie JSON
