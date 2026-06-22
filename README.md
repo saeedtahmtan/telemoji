@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./webp/animated/U+1F525_1.webp" alt="Telemoji" width="150px" height="150px"/>
+  <img src="./webp/animated/U+1F60E_1.webp" alt="Telemoji" width="150px" height="150px"/>
 </p>
 
 <h1 align="center">Telemoji</h1>
@@ -13,7 +13,10 @@
 
 </div>
 
-<h4 align="center">✨ Beautiful animated Telegram emojis + country flags in multiple formats for your projects! 🚀</h4>
+<h4 align="center">
+  <img src="./webp/animated/U+2728_1.webp" width="24" style="vertical-align: middle;" /> Beautiful animated Telegram emojis + country flags in multiple formats for your projects!
+  <img src="./webp/animated/U+1F680_1.webp" width="24" style="vertical-align: middle;" />
+</h4>
 
 <div align="center">
   - High-quality animated emojis and flags from around the world -
@@ -21,15 +24,15 @@
   <sup><sub>Available in TGS, Lottie JSON, and WebP formats ツ</sub></sup>
 </div>
 
-## ✨ Features
+## <img src="./webp/animated/U+2728_1.webp" width="28" style="vertical-align: middle;" /> Features
 
-- 🎨 1192 animated emojis + 251 country flags
-- 🌍 Flags for 200+ countries and organizations
-- 🚀 Multiple formats (TGS, Lottie JSON, WebP)
-- 📱 Easy to integrate via CDN
-- 🔍 Searchable browser interface with preview
-- 🌓 Format switching for different use cases
-- 🎲 All emoji variants included (reactions, dice, status, topics, gifts)
+- <img src="./webp/animated/U+1F3A8_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> 1192 animated emojis + 251 country flags
+- <img src="./webp/flags/IR.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> Flags for 200+ countries and organizations
+- <img src="./webp/animated/U+1F680_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> Multiple formats (TGS, Lottie JSON, WebP)
+- <img src="./webp/animated/U+1F4F1_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> Easy to integrate via CDN
+- <img src="./webp/animated/U+1F50D_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> Searchable browser interface with preview
+- <img src="./webp/animated/U+1F313_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> Format switching for different use cases
+- <img src="./webp/dice/U+1F3B1_1.webp" width="24" style="vertical-align: middle; margin-right: 6px;" /> All emoji variants included (reactions, dice, status, topics, gifts)
 
 ## 🛠️ Usage
 
@@ -75,19 +78,19 @@ Visit our [GitHub Pages site](https://saeedtahmtan.github.io/telemoji/) to brows
 <img src="https://saeedtahmtan.github.io/telemoji/webp/flags/US.webp" alt="US Flag" style="width: 150px;">
 ```
 
-## 📸 Examples
+## <img src="./webp/animated/U+1F914_1.webp" width="28" style="vertical-align: middle;" /> Examples
 
 | Emoji | Name | Lottie | TGS | WebP |
 |-------|------|--------|-----|------|
-| 🔥 | Fire | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F525_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F525_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F525_1.webp) |
-| ❤️ | Red Heart | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+2764_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+2764_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+2764_1.webp) |
-| 😂 | Face with Tears of Joy | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F602_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F602_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F602_1.webp) |
-| 🎉 | Party Popper | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F389_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F389_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F389_1.webp) |
-| 🇺🇳 | United Nations | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/UN.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/UN.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/UN.webp) |
-| 🇺🇸 | United States | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/US.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/US.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/US.webp) |
-| 🇬🇧 | United Kingdom | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/GB.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/GB.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/GB.webp) |
+| <img src="./webp/animated/U+1F525_1.webp" width="48" alt="Fire"> | Fire | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F525_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F525_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F525_1.webp) |
+| <img src="./webp/animated/U+2764_1.webp" width="48" alt="Red Heart"> | Red Heart | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+2764_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+2764_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+2764_1.webp) |
+| <img src="./webp/animated/U+1F602_1.webp" width="48" alt="Face with Tears of Joy"> | Face with Tears of Joy | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F602_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F602_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F602_1.webp) |
+| <img src="./webp/animated/U+1F389_1.webp" width="48" alt="Party Popper"> | Party Popper | [json](https://saeedtahmtan.github.io/telemoji/lottie/animated/U+1F389_1.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/animated/U+1F389_1.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/animated/U+1F389_1.webp) |
+| <img src="./webp/flags/UN.webp" width="48" alt="United Nations"> | United Nations | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/UN.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/UN.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/UN.webp) |
+| <img src="./webp/flags/US.webp" width="48" alt="United States"> | United States | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/US.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/US.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/US.webp) |
+| <img src="./webp/flags/GB.webp" width="48" alt="United Kingdom"> | United Kingdom | [json](https://saeedtahmtan.github.io/telemoji/lottie/flags/GB.json) | [tgs](https://saeedtahmtan.github.io/telemoji/tgs/flags/GB.tgs) | [webp](https://saeedtahmtan.github.io/telemoji/webp/flags/GB.webp) |
 
-## 🔍 Format Comparison
+## <img src="./webp/animated/U+1F50D_1.webp" width="28" style="vertical-align: middle;" /> Format Comparison
 
 ### Lottie JSON
 - Standard vector animation format by Bodymovin
@@ -107,7 +110,7 @@ Visit our [GitHub Pages site](https://saeedtahmtan.github.io/telemoji/) to brows
 - Native browser support without additional libraries
 - Better compatibility across platforms and applications
 
-## 📊 Collection Stats
+## <img src="./webp/animated/U+1F4CA_1.webp" width="28" style="vertical-align: middle;" /> Collection Stats
 
 | Category | Count |
 |----------|-------|
@@ -122,7 +125,7 @@ Visit our [GitHub Pages site](https://saeedtahmtan.github.io/telemoji/) to brows
 | Flags | 251 |
 | **Total** | **1192** |
 
-## 📁 Repository Structure
+## <img src="./webp/animated/U+1F4C1_1.webp" width="28" style="vertical-align: middle;" /> Repository Structure
 
 ```
 tgs/          # TGS (Telegram Sticker) source files
@@ -140,7 +143,7 @@ scripts/
   copy_tgs_to_lottie.py          # Syncs TGS → Lottie JSON
 ```
 
-## 💻 GitHub Pages Interface
+## <img src="./webp/animated/U+1F4BB_1.webp" width="28" style="vertical-align: middle;" /> GitHub Pages Interface
 
 Browse all emojis and flags at [saeedtahmtan.github.io/telemoji/](https://saeedtahmtan.github.io/telemoji/):
 
@@ -150,7 +153,7 @@ Browse all emojis and flags at [saeedtahmtan.github.io/telemoji/](https://saeedt
 - Get ready-to-use HTML, Markdown, and CDN links
 - Click any emoji for a detailed view with copyable code snippets
 
-## 🌐 Use Cases
+## <img src="./webp/animated/U+1F9D0_1.webp" width="28" style="vertical-align: middle;" /> Use Cases
 
 - Enhance user interfaces with animated emojis
 - Build animated reaction pickers for chat apps
@@ -169,7 +172,7 @@ Browse all emojis and flags at [saeedtahmtan.github.io/telemoji/](https://saeedt
 
 Please note that while this repository structure and website are provided under an open license, the original TGS files are created by Telegram. Use of these files should comply with Telegram's terms and conditions.
 
-## 🤝 Contributing
+## <img src="./webp/animated/U+1F91D_1.webp" width="28" style="vertical-align: middle;" /> Contributing
 
 Contributions are welcome! Here are some ways you can contribute:
 
@@ -178,10 +181,13 @@ Contributions are welcome! Here are some ways you can contribute:
 - Report issues or bugs
 - Suggest new features or improvements
 
-## 🌟 Support
+## <img src="./webp/animated/U+1F31F_1.webp" width="28" style="vertical-align: middle;" /> Support
 
-If you found this project helpful, **don't forget to give it a ⭐ on GitHub.** This encourages more innovative projects to thrive! 🫶
+If you found this project helpful, **don't forget to give it a ⭐ on GitHub.** This encourages more innovative projects to thrive!
+<img src="./webp/animated/U+1FAF6_1.webp" width="24" style="vertical-align: middle;" />
 
 ---
 
-🧑‍💻 Built with ❤️ by [Saeed Tahmtan](https://github.com/saeedtahmtan)
+<img src="./webp/animated/U+1F4BB_1.webp" width="24" style="vertical-align: middle;" /> Built with
+<img src="./webp/animated/U+2764_1.webp" width="24" style="vertical-align: middle;" /> by
+[Saeed Tahmtan](https://github.com/saeedtahmtan)
