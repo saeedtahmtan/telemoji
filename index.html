@@ -169,11 +169,12 @@
         const chips = document.getElementById('category-chips');
         const stats = document.getElementById('stats');
         const pagination = document.getElementById('pagination');
+        const WEBP_BASE = 'https://media.githubusercontent.com/media/saeedtahmtan/telemoji/refs/heads/main/';
 
         function fmtPath(item, format) {
             if (format === 'tgs') return item.file_tgs;
             if (format === 'lottie') return item.file_lottie;
-            return item.file_webp;
+            return WEBP_BASE + item.file_webp.replace(/\+/g, '%2B');
         }
 
         function getSearchTerm() { return searchInput.value.toLowerCase().trim(); }
